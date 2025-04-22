@@ -1,0 +1,47 @@
+why I decided to include the statements used in each function:
+In the read_file() function I've included the input statement, because this way the
+user can check the Gene Expression
+levels from multiple files, by specifying each time which file to look through,
+shortly it improves accessibility.
+I've used the read_csv file because this is the easiest way to read the files
+including additional specifications, like
+setting the dataframe index and specifying which are the separators when reading
+the file.
+And I returned the dataframe, because we need to work with it for the following
+tasks and, also, one of the requirements
+is to have a function that returns a variable and I thought this is the perfect
+function to do so as the next functions
+only display data on the screen, without storing it.
+In the plot_boxplots function, all the methods from the matplotlib.pyplot package
+were used to create and show the plot,
+as well as improving it's readability by adding the title and labels. And the
+boxplot() method was used in order to
+specify which dataframe are we working with.
+In the plot_users_gene() function I've added the input statement so the user can
+check any Gene that he wants.
+Afterwards I checked if the inputted Gene Name is valid or not so we won't have any
+unexpected behaviour.
+Lastly, I've used the methods from the matplotlib.pyplot package to create and show
+the plot on user's screen, as well
+as improving clarity by adding the title ant the labels again.
+
+why I divided the program into these functions:
+I tried to divide the program in a way that each function fulfills a requirement,
+except for the second task, because
+the describe() method it's a function itself and I didn't see the point in
+implementing a function that contains only
+other function. In conclusion, the plot_boxplots() function does the job for the
+first task, plot_user_gene() does the
+job for the third task and read_file() does the job for the main request. All of
+them completing the following
+requirements as well, by having 2+ functions developed by myself, one of them
+returning a variable.
+
+why I think these functions are good for solving the problem:
+I think these functions are very simple and efficient, each one does it's
+functionality and nothing more, the functions
+don't require a lot of resources and are easy to understand in case other
+developers want to work on them. The functions
+contain everything needed and are very flexible, giving users the opportunity to
+check for desired Genes in desired
+files.
