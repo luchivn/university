@@ -1,9 +1,9 @@
 #------------------ METADATA -------------------
-# NAME: your full name
-# USERNAME: your login name
+# NAME: Alexei Luchian
+# USERNAME: f24alelu
 # COURSE: Script Programming IT384G - Spring 2025
 # ASSIGNMENT: Assignment 1 - Python - Task 4
-# DATE OF LAST CHANGE: date in ISO 8601
+# DATE OF LAST CHANGE: 2025-04-29
 #-----------------------------------------------
 
 import re
