@@ -52,4 +52,4 @@ def aggregatelog(filename):
 
     return keyvaluepairscounter
 
-dictio = aggregatelog('access.log')
+dictio = aggregatelog('access-small.log')
