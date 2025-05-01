@@ -3,7 +3,7 @@
 # USERNAME: f24alelu
 # COURSE: Script Programming IT384G - Spring 2025
 # ASSIGNMENT: Assignment 1 - Python - Task 1
-# DATE OF LAST CHANGE: 2025-04-21
+# DATE OF LAST CHANGE: 2025-05-01
 #-----------------------------------------------
 
 
@@ -22,7 +22,7 @@ def convert_grade(grade):
 # function for reading subjects' names and ects from a file, storing them into a dictionary.
 def reading_ects():
     ects = {}
-    with open("scriptprogramming-examination.csv") as file:
+    with open("exjobb.csv") as file:
         for line in file:
             subject = line.strip('\n')
             subject = subject.split(';')
@@ -47,6 +47,7 @@ def final_grade(subjects, ects):
 grades is F, and calculating the final grade if that's the case'''
 def get_grades(subjects):
     grades = {}
+    f_flag = False
     for subject in subjects:
         attempts = 3
         while attempts:
@@ -54,14 +55,17 @@ def get_grades(subjects):
             if ord('A') <= ord(grade) <= ord('E'):
                 grades[subject] = grade
                 break
-            elif grade == 'F':
-                return 'Weighted final grade: F'
+            elif grade == "F":
+                f_flag = True
+                break
             else:
                 attempts -= 1
                 if attempts:
                     print(f"Invalid input. Try again. ({attempts})")
                 else:
                     return "Couldn't get it even after 3 tries? I give up. Good luck G"
+    if f_flag:
+        return 'Weighted final grade: F'
     return final_grade(grades, subjects)
 
 
