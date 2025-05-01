@@ -3,23 +3,40 @@
 # USERNAME: f24alelu
 # COURSE: Script Programming IT384G - Spring 2025
 # ASSIGNMENT: Assignment 1 - Python - Task 3
-# DATE OF LAST CHANGE: 2025-04-21
+# DATE OF LAST CHANGE: 2025-05-01
 #-----------------------------------------------
 
 import random
 
 '''the function responsible for reading the highscore, arranging the players and outputting the table and overwriting the
 data in the file'''
+
+
 def check_highscore(username, guesses):
     players = []
     highscores = []
-    with open("highscore.csv") as hs:
-        for score in hs:
-            score = score.strip('\n')
-            score = score.split(';')
-            players.append(score[0])
-            highscores.append(score[1])
 
+    # Step 1: Read the highscore file
+    try:
+        with open("highscore.csv") as hs:
+            for score in hs:
+                score = score.strip('\n')
+                score = score.split(';')
+                players.append(score[0])
+                highscores.append(int(score[1]))
+
+            if not players:
+                raise FileNotFoundError
+    except FileNotFoundError:
+        # If file is missing, create it with default values
+        with open("highscore.csv", "w") as hs:
+            for _ in range(10):
+                hs.write("---;1000\n")
+        # Initialize with default players and scores
+        players = ["---"] * 10
+        highscores = [1000] * 10
+
+    # Step 2: Insert the new score into the correct position
     if int(guesses) > highscores[-1]:
         print(f"You needed {guesses} guesses. Not enough to enter the top 10.")
     else:
@@ -29,6 +46,12 @@ def check_highscore(username, guesses):
                 highscores.insert(i, guesses)
                 players.insert(i, username)
                 break
+
+    # Step 3: Slice to only keep the top 10
+    players = players[:10]
+    highscores = highscores[:10]
+
+    # Step 4: Print the leaderboard
     for i in range(len(highscores)):
         if players[i] in users:
             if players[i] == username:
@@ -41,14 +64,13 @@ def check_highscore(username, guesses):
             else:
                 print(f"| {players[i]} | {highscores[i]} guesses |")
 
-    players = players[:10]
-    highscores = highscores[:10]
-
+    # Step 5: Save the updated leaderboard back to the file
     lines = []
     for i in range(len(players)):
         lines.append(f"{players[i]};{highscores[i]}\n")
     with open("highscore.csv", "w") as final:
         final.writelines(lines)
+
 
 ''' the function that keeps the game going until the user quits or is out of attempts. This function also implements all
  the requirements needed for the mandatory task'''
@@ -58,6 +80,7 @@ def start_game(username):
     print("You can quit at any time by entering 'Q'.")
     game_on = True
     number = random.randint(0, 1000)
+    print(number)
     numbers = set()
     guesses = 0
     quit_flag = 0
