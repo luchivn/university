@@ -3,7 +3,7 @@
 # USERNAME: f24alelu
 # COURSE: Script Programming IT384G - Spring 2025
 # ASSIGNMENT: Assignment 1 - Python - Task 2
-# DATE OF LAST CHANGE: 2025-04-21
+# DATE OF LAST CHANGE: 2025-05-01
 #-----------------------------------------------
 from datetime import datetime
 from unicodedata import normalize, combining
@@ -57,12 +57,15 @@ def check_valid(fusername):
 
 '''function for username generation, validity checking and special cases fixes via other functions from above'''
 def generate_username(fstudent):
+    student_name = re.sub('\n', '', fstudent)
+    student_name = re.sub(r',\s*', ',', student_name)
+    student_name = student_name.split(',')
     student = re.sub('[\n -]', '', fstudent)
     student = normalize_letters(student)
     student = student.split(',')
     fusername = check_length(student[1], student[0]).lower()
     fusername = check_valid(fusername)
-    return fusername
+    return fusername, student_name
 
 '''Read list of existing accounts, and not only, here I've implemented the whole mandatory part, from reading the student 
 names from the file, encoding and normalizing them to creating and checking whether the new usernames are in the database
@@ -70,12 +73,13 @@ or not as well as checking if the same username doesn't appear twice amongst the
 resolution letter if that is the case'''
 with open("existingaccounts.csv","r+") as existingaccountsfile:
     with open("newstudents.csv", encoding="utf-8") as newstudentsfile:
+        newstudents_dict = {}
         newstudents = set()
         for line in newstudentsfile:
             if line.strip() == '':
                 pass
             else:
-                username = generate_username(line)
+                username,fullname = generate_username(line)
                 username = str(year()) + username
                 created = False
                 counter = 0
@@ -85,5 +89,7 @@ with open("existingaccounts.csv","r+") as existingaccountsfile:
                         counter += 1
                     else:
                         created = True
-                        print(new_username)
                         newaccounts.append(new_username)
+                        newstudents_dict[f"{fullname[1]} {fullname[0]}"] = new_username
+    for new_student in newstudents_dict:
+        print(f"{new_student} ->", newstudents_dict[new_student])
